@@ -1,9 +1,7 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-    <RouterView></RouterView>
+  <RouterView></RouterView>
 </template>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

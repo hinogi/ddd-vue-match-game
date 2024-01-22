@@ -1,8 +1,8 @@
 export enum GameStatus {
-    inProgress,
-    stopped,
+  inProgress,
+  stopped,
 }
 
 export interface GameState {
-    gameStatus: GameStatus
+  gameStatus: GameStatus;
 }
