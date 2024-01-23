@@ -29,40 +29,20 @@ export const CardRepository = Context.Tag<CardRepository>();
 
 export const CardRepositoryLive = Layer.effect(
     CardRepository,
-    Effect.map(CardStore, (CardStore) =>
-        CardRepository.of({
-            setCurrentCards: (cards: string[]) => {
-                const store = Effect.runSync(CardStore.useCardStore());
-                return Effect.succeed(store.setCurrentCards(cards));
-            },
-            setCardImageAsset: (cards: string[]) => {
-                const store = Effect.runSync(CardStore.useCardStore());
-                return Effect.succeed(store.setCardImageAsset(cards));
-            },
-            setShowedCards: (cards: ShowedCards) => {
-                const store = Effect.runSync(CardStore.useCardStore());
-                return Effect.succeed(store.setShowedCards(cards));
-            },
-            addShowedCards: (cards: ShowedCards) => {
-                const store = Effect.runSync(CardStore.useCardStore());
-                return Effect.succeed(store.addShowedCards(cards));
-            },
-            openAllShowedCards: () => {
-                const store = Effect.runSync(CardStore.useCardStore());
-                return Effect.succeed(store.openAllShowedCards());
-            },
-            resetShowedCards: () => {
-                const store = Effect.runSync(CardStore.useCardStore());
-                return Effect.succeed(store.resetShowedCards());
-            },
-            setPairCardAttempList: (attemps: PairCardAttempList) => {
-                const store = Effect.runSync(CardStore.useCardStore());
-                return Effect.succeed(store.setPairCardAttempList(attemps));
-            },
-            resetPairCardAttempList: () => {
-                const store = Effect.runSync(CardStore.useCardStore());
-                return Effect.succeed(store.resetPairCardAttempList());
-            },
-        }),
-    ),
+    Effect.gen(function* (_) {
+        const store = yield* _(Effect.map(CardStore, (_) => _.useCardStore()));
+
+        return {
+            setCurrentCards: (cards: string[]) => store.setCurrentCards(cards),
+            setCardImageAsset: (cards: string[]) =>
+                store.setCardImageAsset(cards),
+            setShowedCards: (cards: ShowedCards) => store.setShowedCards(cards),
+            addShowedCards: (cards: ShowedCards) => store.addShowedCards(cards),
+            openAllShowedCards: () => store.openAllShowedCards(),
+            resetShowedCards: () => store.resetShowedCards(),
+            setPairCardAttempList: (attemps: PairCardAttempList) =>
+                store.setPairCardAttempList(attemps),
+            resetPairCardAttempList: () => store.resetPairCardAttempList(),
+        };
+    }),
 );
