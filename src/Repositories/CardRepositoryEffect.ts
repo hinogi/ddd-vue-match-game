@@ -6,13 +6,23 @@ export interface CardRepository {
     readonly setCurrentCards: (
         cards: string[],
     ) => Effect.Effect<never, never, void>;
-    setCardImageAsset(cards: string[]): void;
-    setShowedCards(cards: ShowedCards): void;
-    addShowedCards(cards: ShowedCards): void;
-    openAllShowedCards(cards: ShowedCards): void;
-    resetShowedCards(): void;
-    setPairCardAttempList(attemps: PairCardAttempList): void;
-    resetPairCardAttempList(): void;
+    readonly setCardImageAsset: (
+        cards: string[],
+    ) => Effect.Effect<never, never, void>;
+    readonly setShowedCards: (
+        cards: ShowedCards,
+    ) => Effect.Effect<never, never, void>;
+    readonly addShowedCards: (
+        cards: ShowedCards,
+    ) => Effect.Effect<never, never, void>;
+    readonly openAllShowedCards: (
+        cards: ShowedCards,
+    ) => Effect.Effect<never, never, void>;
+    readonly resetShowedCards: () => Effect.Effect<never, never, void>;
+    readonly setPairCardAttempList: (
+        attemps: PairCardAttempList,
+    ) => Effect.Effect<never, never, void>;
+    readonly resetPairCardAttempList: () => Effect.Effect<never, never, void>;
 }
 
 export const CardRepository = Context.Tag<CardRepository>();
