@@ -39,44 +39,37 @@ function closeModalHandler() {
 }
 </script>
 
-<template>
-    <div class="page-home">
-        <AppHeader></AppHeader>
+<template lang="pug">
+.page-home
+    AppHeader
 
-        <transition name="fade" mode="out-in">
-            <div class="game-content" v-show="cardImages.length">
-                <GameCard
-                    v-for="(image, index) of cardImages"
-                    @open-card="openCardHandler(index)"
-                    :isFlipped="checkIsShowedCard(index)"
-                    :isShowed="checkIsShowedCard(index)"
-                    :image="image"
-                    :key="index + image"
-                ></GameCard>
-            </div>
-        </transition>
+    transition(name="fade" mode="out-in")
+        .game-content(v-show="cardImages.length")
+            GameCard(
+                v-for="(image, index) of cardImages"
+                @open-card="openCardHandler(index)"
+                :isFlipped="checkIsShowedCard(index)"
+                :isShowed="checkIsShowedCard(index)"
+                :image="image"
+                :key="index + image"
+            )
 
-        <AppModal
-            title="You won!"
-            :isShow="isShowModal"
-            @closed="closeModalHandler"
-        ></AppModal>
+    AppModal(
+        title="You won!"
+        :isShow="isShowModal"
+        @closed="closeModalHandler"
+    )
 
-        <div class="footer">
-            <a
-                href="https://github.com/attikos/ddd-vue-match-game"
-                class="footer__link"
-                target="_blank"
-            >
-                <img
-                    src="../assets/github-mark.png"
-                    alt="Github"
-                    class="footer__github"
-                />
-                <span class="footer__link-text">GitHub @attikos</span>
-            </a>
-        </div>
-    </div>
+    .footer
+        a.footer__link(
+            href="https://github.com/attikos/ddd-vue-match-game"
+            target="_blank"
+        )
+            img.footer__github(
+                src="../assets/github-mark.png"
+                alt="Github"
+            )
+            span.footer__link-text GitHub @attikos
 </template>
 
 <style lang="scss">

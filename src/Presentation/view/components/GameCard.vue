@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref, watch, toRefs } from 'vue';
 
 const emit = defineEmits(['openCard']);
 
@@ -9,43 +9,38 @@ const props = defineProps({
     isShowed: Boolean,
 });
 
+const { image, isFlipped, isShowed } = toRefs(props);
+
 const isShowedDelayed = ref<boolean>(false);
 
 // Fix an animation bug of closing cards
-watch(
-    () => props.isShowed,
-    (val, oldVal) => {
-        if (val && !oldVal) {
-            isShowedDelayed.value = true;
-        } else {
-            setTimeout(() => {
-                if (props.isShowed === val && !val && oldVal) {
-                    isShowedDelayed.value = false;
-                }
-            }, 300);
-        }
-    },
-);
+watch(isShowed, (val, oldVal) => {
+    if (val && !oldVal) {
+        isShowedDelayed.value = true;
+    } else {
+        setTimeout(() => {
+            if (isShowed.value === val && !val && oldVal) {
+                isShowedDelayed.value = false;
+            }
+        }, 300);
+    }
+});
 </script>
 
-<template>
-    <div class="card-parent">
-        <div
-            class="card-wrapper"
-            :class="{ 'card-wrapper--flipped': props.isFlipped }"
-            @click="emit('openCard')"
-            tabindex="0"
-        >
-            <div class="card card__back"></div>
+<template lang="pug">
+.card-parent
+    .card-wrapper(
+        :class="{ 'card-wrapper--flipped': isFlipped }"
+        @click="emit('openCard')"
+        tabindex="0"
+    )
+        .card.card__back
+        img.card.card__front(
+            v-if="isShowedDelayed"
+            :src="image"
+            alt=""
+        )
 
-            <img
-                v-if="isShowedDelayed"
-                :src="props.image"
-                alt=""
-                class="card card__front"
-            />
-        </div>
-    </div>
 </template>
 
 <style lang="scss">

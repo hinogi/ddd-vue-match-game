@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { toRefs } from 'vue';
+
 const emit = defineEmits(['closed']);
 
 const props = defineProps({
@@ -6,6 +8,8 @@ const props = defineProps({
     title: String,
     text: String,
 });
+
+const { isShow, title, text } = toRefs(props);
 
 function close() {
     emit('closed');
@@ -15,13 +19,13 @@ function close() {
 <template lang="pug">
 Teleport(to="body")
     transition(name="fade")
-        .modal(v-if="props.isShow")
+        .modal(v-if="isShow")
             .modal__overlay
             .modal__popup
                 button.modal__close(type="button" @click="close")
                     span &times;
-                .modal__title(v-if="props.title") {{ props.title }}
-                .modal__text(v-if="props.text") {{ props.text }}
+                .modal__title(v-if="title") {{ title }}
+                .modal__text(v-if="text") {{ text }}
                 button.modal__btn.btn(type="button" @click="close") OK
 </template>
 
