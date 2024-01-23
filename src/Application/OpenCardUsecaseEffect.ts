@@ -28,7 +28,7 @@ export class OpenCardUsecase implements Usecase {
             return;
         }
 
-        let { pairCardAttempList } = this.cardRepository;
+        const { pairCardAttempList } = this.cardRepository;
 
         if (pairCardAttempList().length >= 2) {
             return;
