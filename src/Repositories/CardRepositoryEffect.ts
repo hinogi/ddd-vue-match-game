@@ -31,22 +31,38 @@ export const CardRepositoryLive = Layer.effect(
     CardRepository,
     Effect.map(CardStore, (CardStore) =>
         CardRepository.of({
-            setCurrentCards: (cards: string[]) =>
-                Effect.succeed(CardStore.setCurrentCards(cards)),
-            setCardImageAsset: (cards: string[]) =>
-                Effect.succeed(CardStore.setCardImageAsset(cards)),
-            setShowedCards: (cards: ShowedCards) =>
-                Effect.succeed(CardStore.setShowedCards(cards)),
-            addShowedCards: (cards: ShowedCards) =>
-                Effect.succeed(CardStore.addShowedCards(cards)),
-            openAllShowedCards: () =>
-                Effect.succeed(CardStore.openAllShowedCards()),
-            resetShowedCards: () =>
-                Effect.succeed(CardStore.resetShowedCards()),
-            setPairCardAttempList: (attemps: PairCardAttempList) =>
-                Effect.succeed(CardStore.setPairCardAttempList(attemps)),
-            resetPairCardAttempList: () =>
-                Effect.succeed(CardStore.resetPairCardAttempList()),
+            setCurrentCards: (cards: string[]) => {
+                const store = Effect.runSync(CardStore.useCardStore());
+                return Effect.succeed(store.setCurrentCards(cards));
+            },
+            setCardImageAsset: (cards: string[]) => {
+                const store = Effect.runSync(CardStore.useCardStore());
+                return Effect.succeed(store.setCardImageAsset(cards));
+            },
+            setShowedCards: (cards: ShowedCards) => {
+                const store = Effect.runSync(CardStore.useCardStore());
+                return Effect.succeed(store.setShowedCards(cards));
+            },
+            addShowedCards: (cards: ShowedCards) => {
+                const store = Effect.runSync(CardStore.useCardStore());
+                return Effect.succeed(store.addShowedCards(cards));
+            },
+            openAllShowedCards: () => {
+                const store = Effect.runSync(CardStore.useCardStore());
+                return Effect.succeed(store.openAllShowedCards());
+            },
+            resetShowedCards: () => {
+                const store = Effect.runSync(CardStore.useCardStore());
+                return Effect.succeed(store.resetShowedCards());
+            },
+            setPairCardAttempList: (attemps: PairCardAttempList) => {
+                const store = Effect.runSync(CardStore.useCardStore());
+                return Effect.succeed(store.setPairCardAttempList(attemps));
+            },
+            resetPairCardAttempList: () => {
+                const store = Effect.runSync(CardStore.useCardStore());
+                return Effect.succeed(store.resetPairCardAttempList());
+            },
         }),
     ),
 );
