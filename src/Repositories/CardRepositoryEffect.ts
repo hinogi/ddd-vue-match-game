@@ -1,4 +1,4 @@
-import { CardStore } from '@/Data/card.store';
+import { CardStore } from '@/Data/cardEffect.store';
 import { Effect, Context, Layer } from 'effect';
 import type { PairCardAttempList, ShowedCards } from '@/Domain/Card';
 
