@@ -1,3 +1,3 @@
 export interface Usecase {
-  execute: () => unknown;
+    execute: () => unknown;
 }

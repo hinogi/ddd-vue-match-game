@@ -1,22 +1,22 @@
-import { useGameStore } from "@/Data/game.store";
-import type { GameStatus } from "@/Domain/Game";
+import { useGameStore } from '@/Data/game.store';
+import type { GameStatus } from '@/Domain/Game';
 
 export class GameRepository {
-  private _store: ReturnType<typeof useGameStore>;
+    private _store: ReturnType<typeof useGameStore>;
 
-  constructor() {
-    this._store = useGameStore();
-  }
+    constructor() {
+        this._store = useGameStore();
+    }
 
-  get store() {
-    return this._store;
-  }
+    get store() {
+        return this._store;
+    }
 
-  setGameStatus(gameStatus: GameStatus) {
-    this.store.setGameStatus(gameStatus);
-  }
+    setGameStatus(gameStatus: GameStatus) {
+        this.store.setGameStatus(gameStatus);
+    }
 
-  resetGameStatus() {
-    this.store.resetGameStatus();
-  }
+    resetGameStatus() {
+        this.store.resetGameStatus();
+    }
 }
