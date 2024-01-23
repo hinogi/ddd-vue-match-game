@@ -11,6 +11,9 @@ export interface CardRepository {
     readonly resetShowedCards: () => void;
     readonly setPairCardAttempList: (attemps: PairCardAttempList) => void;
     readonly resetPairCardAttempList: () => void;
+    readonly currentCards: () => string[];
+    readonly showedCards: () => ShowedCards;
+    readonly pairCardAttempList: () => PairCardAttempList;
 }
 
 export const CardRepository = Context.Tag<CardRepository>();
@@ -33,6 +36,9 @@ export const CardRepositoryLive = Layer.effect(
             setPairCardAttempList: (attemps: PairCardAttempList) =>
                 store.setPairCardAttempList(attemps),
             resetPairCardAttempList: () => store.resetPairCardAttempList(),
+            currentCards: () => store.currentCards,
+            showedCards: () => store.showedCards,
+            pairCardAttempList: () => store.pairCardAttempList,
         };
     }),
 );

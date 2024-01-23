@@ -27,6 +27,11 @@ const useCardStore = defineStore('card', {
         showedCards: {},
         pairCardAttempList: [],
     }),
+    getters: {
+        currentCards: (state) => state.currentCards,
+        showedCards: (state) => state.showedCards,
+        pairCardAttempList: (state) => state.pairCardAttempList,
+    },
 
     actions: {
         setCurrentCards(urls: string[]) {
