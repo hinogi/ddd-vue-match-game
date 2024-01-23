@@ -6,6 +6,7 @@ const props = defineProps({
     title: String,
     text: String,
 });
+
 function close() {
     emit('closed');
 }
@@ -16,23 +17,12 @@ Teleport(to="body")
     transition(name="fade")
         .modal(v-if="props.isShow")
             .modal__overlay
-
             .modal__popup
                 button.modal__close(type="button" @click="close")
                     span &times;
-
-
-                .modal__title(v-if="props.title")
-                    {{ props.title }}
-
-                .modal__text(v-if="props.text")
-                    {{ props.text }}
-
-
-                button.modal__btn.btn(type="button" @click="close")
-                    OK
-
-
+                .modal__title(v-if="props.title") {{ props.title }}
+                .modal__text(v-if="props.text") {{ props.text }}
+                button.modal__btn.btn(type="button" @click="close") OK
 </template>
 
 <style lang="scss">

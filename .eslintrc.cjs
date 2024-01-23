@@ -20,6 +20,8 @@ module.exports = {
         'vue/html-indent': ['error', 4],
         'vue/multi-word-component-names': 0,
         '@typescript-eslint/indent': ['error', 4],
+        'vue/no-multiple-template-root': 0,
+        'vue/valid-template-root': 0,
     },
     overrides: [
         {
