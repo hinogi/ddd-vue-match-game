@@ -1,7 +1,26 @@
 import { defineStore } from 'pinia';
+import { Effect, Context, Layer } from 'effect';
 import type { CardState, PairCardAttempList, ShowedCards } from '@/Domain/Card';
 
-export const useCardStore = defineStore('card', {
+// type CardStore = ReturnType<typeof useCardStore>
+export interface CardStore {
+    readonly useCardStore: () => Effect.Effect<
+        never,
+        never,
+        ReturnType<typeof useCardStore>
+    >;
+}
+
+export const CardStore = Context.Tag<CardStore>();
+
+export const CardStoreLive = Layer.succeed(
+    CardStore,
+    CardStore.of({
+        useCardStore: () => Effect.succeed(useCardStore()),
+    }),
+);
+
+const useCardStore = defineStore('card', {
     state: (): CardState => ({
         cardImageAsset: [],
         currentCards: [],
