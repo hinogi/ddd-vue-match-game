@@ -3,26 +3,14 @@ import { Effect, Context, Layer } from 'effect';
 import type { PairCardAttempList, ShowedCards } from '@/Domain/Card';
 
 export interface CardRepository {
-    readonly setCurrentCards: (
-        cards: string[],
-    ) => Effect.Effect<never, never, void>;
-    readonly setCardImageAsset: (
-        cards: string[],
-    ) => Effect.Effect<never, never, void>;
-    readonly setShowedCards: (
-        cards: ShowedCards,
-    ) => Effect.Effect<never, never, void>;
-    readonly addShowedCards: (
-        cards: ShowedCards,
-    ) => Effect.Effect<never, never, void>;
-    readonly openAllShowedCards: (
-        cards: ShowedCards,
-    ) => Effect.Effect<never, never, void>;
-    readonly resetShowedCards: () => Effect.Effect<never, never, void>;
-    readonly setPairCardAttempList: (
-        attemps: PairCardAttempList,
-    ) => Effect.Effect<never, never, void>;
-    readonly resetPairCardAttempList: () => Effect.Effect<never, never, void>;
+    readonly setCurrentCards: (cards: string[]) => void;
+    readonly setCardImageAsset: (cards: string[]) => void;
+    readonly setShowedCards: (cards: ShowedCards) => void;
+    readonly addShowedCards: (cards: ShowedCards) => void;
+    readonly openAllShowedCards: (cards: ShowedCards) => void;
+    readonly resetShowedCards: () => void;
+    readonly setPairCardAttempList: (attemps: PairCardAttempList) => void;
+    readonly resetPairCardAttempList: () => void;
 }
 
 export const CardRepository = Context.Tag<CardRepository>();
@@ -30,7 +18,9 @@ export const CardRepository = Context.Tag<CardRepository>();
 export const CardRepositoryLive = Layer.effect(
     CardRepository,
     Effect.gen(function* (_) {
-        const store = yield* _(Effect.map(CardStore, (_) => _.useCardStore()));
+        const store = yield* _(
+            Effect.flatMap(CardStore, (_) => _.useCardStore()),
+        );
 
         return {
             setCurrentCards: (cards: string[]) => store.setCurrentCards(cards),
